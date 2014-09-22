@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Playerinf : MonoBehaviour {
 
-	Dictionary<uint><string> availablePhrases;
+	Dictionary<string, string> availablePhrases;
 	List<uint> itemsList;
 	// Use this for initialization
 	void Start () {
@@ -15,4 +15,5 @@ public class Playerinf : MonoBehaviour {
 	void Update () {
 	
 	}
+
 }
