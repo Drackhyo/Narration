@@ -8,7 +8,7 @@ public class Playerinf : MonoBehaviour {
 	List<uint> itemsList;
 	// Use this for initialization
 	void Start () {
-	
+		availablePhrases=new List<string>();
 		availablePhrases.Add("Trade");
 		availablePhrases.Add("Rumor");
 	}
@@ -16,6 +16,10 @@ public class Playerinf : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	public List<string> getAvailablePhrases()
+	{
+		return availablePhrases;
 	}
 
 }

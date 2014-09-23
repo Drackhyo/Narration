@@ -6,12 +6,12 @@ public class NPC : MonoBehaviour {
 	public string NPCName;
 	public Dictionary<string,string> responseTable;
 	public Dictionary<string,string> inventory;
-	
+	public string greetText;
 
 	// Use this for initialization
 	void Start () 
 	{
-	
+	greetText="hello";
 	}
 	
 	// Update is called once per frame
@@ -21,13 +21,9 @@ public class NPC : MonoBehaviour {
 	}
 	void OnMouseUpAsButton()
 	{
-		GameObject.Find("DialogManager").transform.GetComponent<DialogManager>().DisplayText(NPCName);
+		GameObject.Find("DialogManager").transform.GetComponent<DialogManager>().GreetNPC(NPCName,greetText);
 	}
-	
-	void OnGreet()
-	{
-		
-	}
+
 
 	void ConversationOption(string key)
 	{

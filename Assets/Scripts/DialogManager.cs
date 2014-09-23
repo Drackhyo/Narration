@@ -7,8 +7,9 @@ public class DialogManager : MonoBehaviour {
 	bool displayMode=false; //true=interactif, false= text
 	private Rect windowRect = new Rect (0, 4*Screen.height/5, Screen.width, Screen.height/5);
 	string textToDisplay="Bienvenu dans le jeu";
-	public Vector2 scrollPosition = Vector2.zero;
+	protected Vector2 scrollPosition = Vector2.zero;
 	private List<string> speechOption;
+	protected string currentNPC;
 	void OnGUI () {
 		windowRect = GUI.Window (0, windowRect, WindowFunction, "Dialog Box");
 
@@ -18,7 +19,8 @@ public class DialogManager : MonoBehaviour {
 			int i=0;
 			foreach(string option in speechOption)
 			{
-				GUI.Button(new Rect(0, i*20, 100, 20), option);
+				if(GUI.Button(new Rect(0, i*20, 100, 20), option))
+					Debug.Log (option);
 				i++;
 			}
 	
@@ -29,10 +31,7 @@ public class DialogManager : MonoBehaviour {
 		{
 			if(GUI.Button(new Rect(Screen.width*0.02f,4.2f*Screen.height/5,Screen.width,Screen.height/5),textToDisplay,"Label"))
 			{
-				List<string> availablePhrases=new List<string>();
-				availablePhrases.Add("Trade");
-				availablePhrases.Add("Rumor");
-				DisplayList(availablePhrases);
+				DisplayList();
 			}
 		}
 	}
@@ -40,14 +39,25 @@ public class DialogManager : MonoBehaviour {
 	void WindowFunction (int windowID) {
 		// Draw any Controls inside the window here
 	}
-	public void DisplayText(string text)
+	public void GreetNPC(string name,string text)
 	{
-		textToDisplay=text;
-		displayMode=false;
+		if(name!=currentNPC)
+		{
+			textToDisplay=text;
+			displayMode=false;
+			currentNPC=name;
+			foreach(GameObject npc in GameObject.Find("NPC"))
+			{
+				if(npc.GetComponent<NPC>().NPCName==name)
+				{
+					GameObject.Find("Player").transform.position=npc.transform.position;
+				}
+			}
+		}
 	}
-	public void DisplayList(List<string> speechList)
+	public void DisplayList()
 	{
-		speechOption=speechList;
+		speechOption=GameObject.Find("Player").transform.GetComponent<Playerinf>().getAvailablePhrases();
 		displayMode=true;
 	}
 }
