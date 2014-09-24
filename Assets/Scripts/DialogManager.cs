@@ -9,9 +9,9 @@ public class DialogManager : MonoBehaviour {
 	string textToDisplay="Bienvenu dans le jeu";
 	protected Vector2 scrollPosition = Vector2.zero;
 	private List<string> speechOption;
-	protected string currentNPC;
+	protected string currentNPC="Dialog Box";
 	void OnGUI () {
-		windowRect = GUI.Window (0, windowRect, WindowFunction, "Dialog Box");
+		windowRect = GUI.Window (0, windowRect, WindowFunction,currentNPC);
 
 		if(displayMode)
 		{
@@ -46,11 +46,14 @@ public class DialogManager : MonoBehaviour {
 			textToDisplay=text;
 			displayMode=false;
 			currentNPC=name;
-			foreach(GameObject npc in GameObject.Find("NPC"))
+			foreach(GameObject npc in GameObject.FindGameObjectsWithTag("NPC"))
 			{
-				if(npc.GetComponent<NPC>().NPCName==name)
+				if(npc.name==name)
 				{
 					GameObject.Find("Player").transform.position=npc.transform.position;
+					Vector2 lol =GameObject.Find("Player").transform.position;
+					lol.x++;
+					GameObject.Find("Player").transform.position=lol;
 				}
 			}
 		}

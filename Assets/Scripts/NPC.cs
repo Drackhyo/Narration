@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class NPC : MonoBehaviour {
-	public string NPCName;
 	public Dictionary<string,string> responseTable;
 	public Dictionary<string,string> inventory;
 	public string greetText;
@@ -21,7 +20,7 @@ public class NPC : MonoBehaviour {
 	}
 	void OnMouseUpAsButton()
 	{
-		GameObject.Find("DialogManager").transform.GetComponent<DialogManager>().GreetNPC(NPCName,greetText);
+		GameObject.Find("DialogManager").transform.GetComponent<DialogManager>().GreetNPC(name,greetText);
 	}
 
 
