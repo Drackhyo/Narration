@@ -20,7 +20,7 @@ public class DialogManager : MonoBehaviour {
 			foreach(string option in speechOption)
 			{
 				if(GUI.Button(new Rect(0, i*20, 100, 20), option))
-					Debug.Log (option);
+					GameObject.Find(currentNPC).GetComponent<NPC>().ConversationOption(option);
 				i++;
 			}
 	
@@ -39,7 +39,7 @@ public class DialogManager : MonoBehaviour {
 	void WindowFunction (int windowID) {
 		// Draw any Controls inside the window here
 	}
-	public void GreetNPC(string name,string text)
+	public void NPCAnswer(string name,string text)
 	{
 		if(name!=currentNPC)
 		{
@@ -51,11 +51,17 @@ public class DialogManager : MonoBehaviour {
 				if(npc.name==name)
 				{
 					GameObject.Find("Player").transform.position=npc.transform.position;
-					Vector2 lol =GameObject.Find("Player").transform.position;
-					lol.x++;
-					GameObject.Find("Player").transform.position=lol;
+					Vector2 nextPos =GameObject.Find("Player").transform.position;
+					nextPos.x++;
+					GameObject.Find("Player").transform.position=nextPos;
 				}
 			}
+		}
+		else
+		{
+			textToDisplay=text;
+			displayMode=false;
+
 		}
 	}
 	public void DisplayList()

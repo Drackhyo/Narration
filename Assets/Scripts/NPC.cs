@@ -6,11 +6,15 @@ public class NPC : MonoBehaviour {
 	public Dictionary<string,string> responseTable;
 	public Dictionary<string,string> inventory;
 	public string greetText;
+	DialogManager dialog;
 
 	// Use this for initialization
 	void Start () 
 	{
+		dialog=GameObject.Find("DialogManager").transform.GetComponent<DialogManager>();
 	greetText="hello";
+		responseTable=new Dictionary<string,string>();
+		responseTable.Add("Rumor","A rumor");
 	}
 	
 	// Update is called once per frame
@@ -20,18 +24,21 @@ public class NPC : MonoBehaviour {
 	}
 	void OnMouseUpAsButton()
 	{
-		GameObject.Find("DialogManager").transform.GetComponent<DialogManager>().GreetNPC(name,greetText);
+		dialog.NPCAnswer(name,greetText);
 	}
 
 
-	void ConversationOption(string key)
+	public void ConversationOption(string key)
 	{
 		if (responseTable.ContainsKey(key)) 
 		{
-
+			string answer="";
+			responseTable.TryGetValue(key,out answer);
+			dialog.NPCAnswer(name,answer);
 		}
 		else
 		{
+			dialog.NPCAnswer(name,"I don't know what you're talking about");
 			//getGenericAnswer
 		}
 			
