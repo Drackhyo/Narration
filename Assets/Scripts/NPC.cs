@@ -3,18 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class NPC : MonoBehaviour {
-	public Dictionary<string,string> responseTable;
+
 	public Dictionary<string,string> inventory;
 	public string greetText;
-	DialogManager dialog;
+	Transform dialog;
 
 	// Use this for initialization
 	void Start () 
 	{
-		dialog=GameObject.Find("DialogManager").transform.GetComponent<DialogManager>();
+		dialog=GameObject.Find("DialogManager").transform;
 	greetText="hello";
-		responseTable=new Dictionary<string,string>();
-		responseTable.Add("Rumor","A rumor");
+
 	}
 	
 	// Update is called once per frame
@@ -24,23 +23,21 @@ public class NPC : MonoBehaviour {
 	}
 	void OnMouseUpAsButton()
 	{
-		dialog.NPCAnswer(name,greetText);
+		dialog.GetComponent<DialogManager>().NPCAnswer(name,greetText);
 	}
 
 
 	public void ConversationOption(string key)
 	{
-		if (responseTable.ContainsKey(key)) 
+
+		string speech = dialog.GetComponent<SpeechDB>().GetAnswer(name, key);
+		if (speech == "")
 		{
-			string answer="";
-			responseTable.TryGetValue(key,out answer);
-			dialog.NPCAnswer(name,answer);
+			dialog.GetComponent<DialogManager>().NPCAnswer(name,"I don't know what you're talking about");
 		}
 		else
-		{
-			dialog.NPCAnswer(name,"I don't know what you're talking about");
-			//getGenericAnswer
-		}
+			dialog.GetComponent<DialogManager>().NPCAnswer(name,speech);
+
 			
 	}
 }
