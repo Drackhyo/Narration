@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class NPC : MonoBehaviour {
-	public Dictionary<string,string> itemInteractions;
-	public Dictionary<string,string> inventory;
+	public Dictionary<string,string> itemInteractions;//<SpeechKey, itemName>
+	public Dictionary<string,float> inventory;//<itemName, amount>
 	public string greetText;
 	Transform dialog;
 
@@ -12,8 +12,7 @@ public class NPC : MonoBehaviour {
 	void Start () 
 	{
 		dialog=GameObject.Find("DialogManager").transform;
-	greetText="hello";
-
+		greetText="hello";
 	}
 	
 	// Update is called once per frame
@@ -40,5 +39,8 @@ public class NPC : MonoBehaviour {
 			dialog.GetComponent<DialogManager>().NPCAnswer(name,speech);
 
 			
+	}
+	public void tick (){
+
 	}
 }
