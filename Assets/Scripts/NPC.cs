@@ -40,7 +40,8 @@ public class NPC : MonoBehaviour {
 
 			
 	}
-	public void tick (){
-
+	public void tick ()
+	{
+		transform.position+=(Random.insideUnitSphere/3);
 	}
 }

@@ -45,6 +45,7 @@ public class DialogManager : MonoBehaviour {
 	{
 		if(name!=currentNPC)
 		{
+			GetComponent<WorldManager>().UpdateWorld();
 			textToDisplay=text;
 			displayMode=false;
 			currentNPC=name;
