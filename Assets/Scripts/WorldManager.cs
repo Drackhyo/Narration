@@ -12,7 +12,7 @@ public class WorldManager : MonoBehaviour {
 	{
 		foreach(GameObject actor in NPCs)
 		{
-			actor.GetComponent<NPC>().tick();
+			actor.SendMessage("Tick");
 		}
 	}
 	// Update is called once per frame
