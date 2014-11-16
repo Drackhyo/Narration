@@ -1,21 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JeanScript : MonoBehaviour {
-	NPC myNPCscript;
+public class JeanScript : NPCBehaviour {
 	// Use this for initialization
 	void Start () {
-		myNPCscript= gameObject.GetComponent<NPC>();
+		base.Start();
 		int lol = 4;
-		int asda=myNPCscript.ModInventory("Patate", lol);
-		Debug.Log (asda);
+		int asda=myNPCscript.ModInventory("Patate", lol);;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	override protected void Tick()
+	{
+
 	}
-	void Tick()
+	override protected void SpeechReaction(string speech)
 	{
 
 	}
