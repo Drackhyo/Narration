@@ -31,10 +31,11 @@ public class NPC : MonoBehaviour {
 		inventory.TryGetValue(itemName, out currentAmount);///wtf piece of shit does not work
 		if(currentAmount<=0)
 		{
-			Debug.Log("loll") ;
+
 			currentAmount+=amount;
 			if(currentAmount>=0)
 				inventory.Add(itemName,currentAmount);
+
 			return currentAmount;
 		}
 		else if (amount>0)
@@ -64,11 +65,6 @@ public class NPC : MonoBehaviour {
 	public void Tick ()
 	{
 		transform.position+=(Random.insideUnitSphere/3);
-		int lol=0;
-		if(inventory.TryGetValue("Patate",out lol))
-		 {
-			Debug.Log(name);
-		   Debug.Log(lol);
-		}
+
 	}
 }
