@@ -4,18 +4,16 @@ using System.Collections.Generic;
 
 public class SpeechDB : MonoBehaviour {
 	public Dictionary<string,string> responseTable;
-	public Dictionary<string,string> itemSpeechTable;
+	public Dictionary<string,string> eventTable;
 	// Use this for initialization
 	void Start () {
 		responseTable=new Dictionary<string,string>();
+		eventTable=new Dictionary<string, string>();
 		responseTable.Add("BobRumor","A rumor");
-		responseTable.Add("BobRumor1","A rumor");
-		responseTable.Add("BobRumor2","Another rumor");
 		responseTable.Add("Rumor","A generic rumor");
 
 		responseTable.Add("BobIron", "Here, take some Iron to Jean");
-		responseTable.Add("BobIron1", "Here, take some Iron to Jean");
-		responseTable.Add("BobIron2", "You already have some Iron");
+
 
 		responseTable.Add("JeanIron", "ERROR");
 		responseTable.Add("JeanIron1", "You don't have any Iron");
@@ -26,14 +24,22 @@ public class SpeechDB : MonoBehaviour {
 	public string GetAnswer( string NPCname, string key)
 	{
 		string answer = "";
-		if(responseTable.TryGetValue(NPCname+key,out answer))
+		if(responseTable.TryGetValue(NPCname+key,out answer))//NPC specific answer for topic
+		{
+			string eventName;
+			if(eventTable.TryGetValue(NPCname+key,out eventName))
+			{
+				GameObject NPCs=GameObject.Find(NPCname);
+					NPCs.SendMessage(eventName);
+			}
 			return answer;
-		else if(responseTable.TryGetValue(key,out answer))
+		}	
+		else if(responseTable.TryGetValue(key,out answer))//generic answer for topic
 			return answer;
 		else
-			return "";
+			return "";//Returns "error" speech, default "I don't know what you're talking about"
 	}
-	public bool SetAnswer ( string NPCname, string key, string answer)
+	public bool SetAnswer ( string NPCname, string key, string answer)//for generic answer, NPCName==""
 	{
 
 		if(responseTable.ContainsKey(NPCname+key))
@@ -59,6 +65,21 @@ public class SpeechDB : MonoBehaviour {
 		return false;
 	}
 
+
+	public bool SetEvent( string NPCname, string key, string eventName)//eventName==method to call
+	{
+		if(eventTable.ContainsKey(NPCname+key))
+		{
+			eventTable[NPCname+key]=eventName;
+			return true;
+		}
+		else
+		{
+			eventTable.Add(NPCname+key,eventName);
+			return true;
+		}
+		return false;
+	}
 	// Update is called once per frame
 	void Update () {
 	

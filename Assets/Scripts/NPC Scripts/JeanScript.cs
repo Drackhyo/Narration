@@ -7,6 +7,7 @@ public class JeanScript : NPCBehaviour {
 		base.Start();
 		int lol = 4;
 		int asda=myNPCscript.ModInventory("Patate", lol);
+		mySpeechDB.SetEvent(name,"Rumor", "grospenis");
 
 	}
 
@@ -16,5 +17,9 @@ public class JeanScript : NPCBehaviour {
 	override protected void SpeechReaction(string speech)
 	{
 
+	}
+	void grospenis()
+	{
+		Debug.Log("grospenis");
 	}
 }
