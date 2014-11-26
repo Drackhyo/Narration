@@ -11,7 +11,7 @@ public class NPC : MonoBehaviour {
 	void Start () 
 	{
 		inventory=new Dictionary<string,int>();
-		inventory.Add("Iron",0);
+		inventory.Add("Iron",1);
 		dialog=GameObject.Find("DialogManager").transform;
 
 	}
@@ -25,25 +25,26 @@ public class NPC : MonoBehaviour {
 	{
 		dialog.GetComponent<DialogManager>().NPCAnswer(name,greetText);
 	}
-	public int ModInventory(string itemName, int amount)
+	public int ModInventory(string itemName, int amount)//pour modifier et obtenir le compte d'inventaire
 	{
+
 		int currentAmount;
-		inventory.TryGetValue(itemName, out currentAmount);///wtf piece of shit does not work
-		if(currentAmount<=0)
+		if(inventory.TryGetValue(itemName, out currentAmount))
 		{
-
-			currentAmount+=amount;
-			if(currentAmount>=0)
-				inventory.Add(itemName,currentAmount);
-
-			return currentAmount;
-		}
-		else if (amount>0)
-		{
-			inventory.Add(itemName,amount);
-			return amount;
+			if(currentAmount>=-1*amount)
+			{
+				inventory[itemName]+=amount;
+				return inventory[itemName];
+			}
 		}
 		else
+		{
+			if(amount>=0)
+			{
+				inventory.Add(itemName,amount);
+				return amount;
+			}
+		}
 		return -1;
 	}
 
@@ -55,7 +56,6 @@ public class NPC : MonoBehaviour {
 		if (speech == "")
 		{
 			dialog.GetComponent<DialogManager>().NPCAnswer(name,"I don't know what you're talking about");
-			dialog.GetComponent<SpeechDB>().SetAnswer(name, "Rumor", 2);
 		}
 		else
 			dialog.GetComponent<DialogManager>().NPCAnswer(name,speech);

@@ -6,12 +6,12 @@ public class JeanScript : NPCBehaviour {
 	void Start () {
 		base.Start();
 		int lol = 4;
-		int asda=myNPCscript.ModInventory("Patate", lol);;
+		int asda=myNPCscript.ModInventory("Patate", lol);
+
 	}
 
 	override protected void Tick()
 	{
-
 	}
 	override protected void SpeechReaction(string speech)
 	{

@@ -22,6 +22,7 @@ public class SpeechDB : MonoBehaviour {
 		responseTable.Add("JeanIron2", "Thanks!");
 
 	}
+
 	public string GetAnswer( string NPCname, string key)
 	{
 		string answer = "";
@@ -32,18 +33,30 @@ public class SpeechDB : MonoBehaviour {
 		else
 			return "";
 	}
-	public void SetAnswer ( string NPCname, string key, int number)
+	public bool SetAnswer ( string NPCname, string key, string answer)
 	{
-		string answer = "";
+
 		if(responseTable.ContainsKey(NPCname+key))
 		{
-			if(responseTable.TryGetValue(NPCname+key+number.ToString(),out answer))
-			{
-			responseTable.Remove (NPCname+key);
-			responseTable.Add(NPCname+key,answer);
-			}
+			responseTable[NPCname+key]=answer;
+			return true;
 		}
+		else
+		{
+			responseTable.Add(NPCname+key,answer);
+			return true;
+		}
+		return false;
 
+	}
+	public bool RemoveAnswer (string NPCname, string key)
+	{
+		if(responseTable.ContainsKey(NPCname+key))
+		{
+			responseTable.Remove(NPCname+key);
+			return true;
+		}
+		return false;
 	}
 
 	// Update is called once per frame
