@@ -6,18 +6,22 @@ public class SpeechDB : MonoBehaviour {
 	public Dictionary<string,string> responseTable;
 	public Dictionary<string,string> eventTable;
 	// Use this for initialization
-	void Start () {
+	void Awake (){
 		responseTable=new Dictionary<string,string>();
 		eventTable=new Dictionary<string, string>();
 		responseTable.Add("BobRumor","A rumor");
 		responseTable.Add("Rumor","A generic rumor");
-
+		
 		responseTable.Add("BobIron", "Here, take some Iron to Jean");
-
-
+		
+		
 		responseTable.Add("JeanIron", "ERROR");
 		responseTable.Add("JeanIron1", "You don't have any Iron");
 		responseTable.Add("JeanIron2", "Thanks!");
+
+	}
+	void Start () {
+
 
 	}
 
@@ -39,20 +43,24 @@ public class SpeechDB : MonoBehaviour {
 		else
 			return "";//Returns "error" speech, default "I don't know what you're talking about"
 	}
-	public bool SetAnswer ( string NPCname, string key, string answer)//for generic answer, NPCName==""
+	public void SetEvent( string NPCname, string key, string eventName)//eventName==method to call
+	{
+		if(eventTable.ContainsKey(NPCname+key))
+			eventTable[NPCname+key]=eventName;
+		
+		else
+			eventTable.Add(NPCname+key,eventName);
+		
+	}
+	public void SetAnswer ( string NPCname, string key, string answer)//for generic answer, NPCName==""
 	{
 
 		if(responseTable.ContainsKey(NPCname+key))
-		{
 			responseTable[NPCname+key]=answer;
-			return true;
-		}
+
 		else
-		{
 			responseTable.Add(NPCname+key,answer);
-			return true;
-		}
-		return false;
+		
 
 	}
 	public bool RemoveAnswer (string NPCname, string key)
@@ -66,20 +74,7 @@ public class SpeechDB : MonoBehaviour {
 	}
 
 
-	public bool SetEvent( string NPCname, string key, string eventName)//eventName==method to call
-	{
-		if(eventTable.ContainsKey(NPCname+key))
-		{
-			eventTable[NPCname+key]=eventName;
-			return true;
-		}
-		else
-		{
-			eventTable.Add(NPCname+key,eventName);
-			return true;
-		}
-		return false;
-	}
+
 	// Update is called once per frame
 	void Update () {
 	
