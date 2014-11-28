@@ -11,14 +11,6 @@ public class SpeechDB : MonoBehaviour {
 		eventTable=new Dictionary<string, string>();
 		responseTable.Add("BobRumor","A rumor");
 		responseTable.Add("Rumor","A generic rumor");
-		
-		responseTable.Add("BobIron", "Here, take some Iron to Jean");
-		
-		
-		responseTable.Add("JeanIron", "ERROR");
-		responseTable.Add("JeanIron1", "You don't have any Iron");
-		responseTable.Add("JeanIron2", "Thanks!");
-
 	}
 	void Start () {
 
@@ -51,6 +43,18 @@ public class SpeechDB : MonoBehaviour {
 		else
 			eventTable.Add(NPCname+key,eventName);
 		
+	}
+	public bool RemoveEvent (string NPCname, string key, string eventToDelete)
+	{
+		if(eventTable.ContainsKey(NPCname+key))
+		{
+			if(eventTable[NPCname+key]==eventToDelete)
+			{
+				eventTable.Remove(NPCname+key);
+				return true;
+			}
+		}
+		return false;
 	}
 	public void SetAnswer ( string NPCname, string key, string answer)//for generic answer, NPCName==""
 	{

@@ -8,10 +8,9 @@ public class NPC : MonoBehaviour {
 	Transform dialog;
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
 	{
 		inventory=new Dictionary<string,int>();
-		inventory.Add("Iron",1);
 		dialog=GameObject.Find("DialogManager").transform;
 
 	}
@@ -25,6 +24,7 @@ public class NPC : MonoBehaviour {
 	{
 		dialog.GetComponent<DialogManager>().NPCAnswer(name,greetText);
 	}
+
 	public int ModInventory(string itemName, int amount)//pour modifier et obtenir le compte d'inventaire
 	{
 

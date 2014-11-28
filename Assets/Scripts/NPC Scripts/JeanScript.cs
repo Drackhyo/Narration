@@ -3,12 +3,11 @@ using System.Collections;
 
 public class JeanScript : NPCBehaviour {
 	// Use this for initialization
-	void Start () {
+	override protected void Start () {
 		base.Start();
-		int lol = 4;
-		int asda=myNPCscript.ModInventory("Patate", lol);
-		mySpeechDB.SetAnswer(name, "Rumor", "petitpenis");
-		mySpeechDB.SetEvent(name,"Rumor", "grospenis");
+		myNPCscript.ModInventory("Patate", 4);
+		mySpeechDB.SetAnswer(name,"Rumor", "I need these potatoes delivered to Bob, can you do it?");
+		mySpeechDB.SetEvent(name,"Rumor", "RumorDelivery");
 
 
 	}
@@ -16,12 +15,22 @@ public class JeanScript : NPCBehaviour {
 	override protected void Tick()
 	{
 	}
-	override protected void SpeechReaction(string speech)
+
+	public void RumorDelivery()
 	{
 
+		mySpeechDB.SetAnswer(name,"Rumor", "Nope, nothing new under the sun");
+		mySpeechDB.SetAnswer(name,"Delivery", "Great, thanks! (4 Potatoes added)");
+		mySpeechDB.SetEvent(name,"Delivery", "DeliveryGive");
+		mySpeechDB.RemoveEvent(name,"Rumor", "RumorDelivery");
+		player.AddPhrase("Delivery");
+
 	}
-	void grospenis()
+	public void DeliveryGive()
 	{
-		Debug.Log("grospenis");
+		mySpeechDB.SetAnswer(name,"Delivery", "Did you already give the potatoes to Bob?");
+		myNPCscript.ModInventory("Patate", -4);
+		player.ModInventory("Patate", 4);
+		mySpeechDB.RemoveEvent(name, "Delivery", "DeliveryGive");
 	}
 }

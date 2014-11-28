@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+//handles dialog system basic frontend & linkage
 public class DialogManager : MonoBehaviour {
 
 	bool displayMode=false; //true=interactif, false= text
@@ -18,8 +19,13 @@ public class DialogManager : MonoBehaviour {
 		if(displayMode)
 		{
 			scrollPosition = GUI.BeginScrollView(new Rect(Screen.width*0.02f,4.2f*Screen.height/5,Screen.width,Screen.height/5), scrollPosition, new Rect(0, 0, 220, 200));
+			List<string> tempSpeechList= new List<string>();
+			foreach(string option in speechOption)//pour éviter une erreur d'énumération
+			{
+				tempSpeechList.Add(option);
+			}
 			int i=0;
-			foreach(string option in speechOption)//affiche les boutons selon les phrases du joueur
+			foreach(string option in tempSpeechList)//affiche les boutons selon les phrases du joueur
 			{
 				if(GUI.Button(new Rect(0, i*20, 100, 20), option))
 					GameObject.Find(currentNPC).GetComponent<NPC>().ConversationOption(option);
