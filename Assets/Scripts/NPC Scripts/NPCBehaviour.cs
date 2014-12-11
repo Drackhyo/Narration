@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public abstract class NPCBehaviour : MonoBehaviour{
-	protected  NPC myNPCscript;
-	protected SpeechDB mySpeechDB;
-	protected Playerinf player;
+	private  NPC myNPCscript;
+	private SpeechDB mySpeechDB;
+	private Playerinf player;
 	// Use this for initialization
 	virtual protected void Start ()
 	{}
@@ -26,5 +26,20 @@ public abstract class NPCBehaviour : MonoBehaviour{
 	{
 		mySpeechDB.RemoveEvent(name,key, eventName);
 	}
-
+	protected int ModifyInventory(string itemName, int amount)
+	{
+		return myNPCscript.ModInventory(itemName,amount);
+	}
+	protected int ModifyPlayerInventory(string itemName, int amount)
+	{
+		return player.ModInventory(itemName,amount);
+	}
+	protected bool AddPlayerPhrase(string phrase)
+	{
+		return player.AddPhrase(phrase);
+	}
+	protected bool RemovePlayerPhrase(string phrase)
+	{
+		return player.RemovePhrase(phrase);
+	}
 }

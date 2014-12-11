@@ -17,9 +17,9 @@ public class BobScript : NPCBehaviour {
 
 	public void Delivery()
 	{
-		if(player.ModInventory("Patate",0)==4)
+		if(ModifyPlayerInventory("Patate",0)==4)
 		{
-			player.RemovePhrase("Delivery");
+			RemovePlayerPhrase("Delivery");
 		}
 
 	}
