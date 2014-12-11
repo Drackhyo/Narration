@@ -11,12 +11,12 @@ public class DialogManager : MonoBehaviour {
 
 	protected Vector2 scrollPosition = Vector2.zero;
 	private List<string> speechOption;
-	protected string currentNPC="Dialog Box";
+	protected string currentNPC="";
 
 	void OnGUI () {
 		windowRect = GUI.Window (0, windowRect, WindowFunction,currentNPC);
 
-		if(displayMode)
+		if(displayMode && currentNPC !="")
 		{
 			scrollPosition = GUI.BeginScrollView(new Rect(Screen.width*0.02f,4.2f*Screen.height/5,Screen.width,Screen.height/5), scrollPosition, new Rect(0, 0, 220, 200));
 			List<string> tempSpeechList= new List<string>();

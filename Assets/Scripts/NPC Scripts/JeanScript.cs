@@ -6,8 +6,8 @@ public class JeanScript : NPCBehaviour {
 	override protected void Start () {
 		base.Start();
 		myNPCscript.ModInventory("Patate", 4);
-		mySpeechDB.SetAnswer(name,"Rumor", "I need these potatoes delivered to Bob, can you do it?");
-		mySpeechDB.SetEvent(name,"Rumor", "RumorDelivery");
+		SetAnswer("Rumor", "I need these potatoes delivered to Bob, can you do it?");
+		SetEvent("Rumor", "RumorDelivery");
 
 
 	}
@@ -19,18 +19,18 @@ public class JeanScript : NPCBehaviour {
 	public void RumorDelivery()
 	{
 
-		mySpeechDB.SetAnswer(name,"Rumor", "Nope, nothing new under the sun");
-		mySpeechDB.SetAnswer(name,"Delivery", "Great, thanks! (4 Potatoes added)");
-		mySpeechDB.SetEvent(name,"Delivery", "DeliveryGive");
-		mySpeechDB.RemoveEvent(name,"Rumor", "RumorDelivery");
+		SetAnswer("Rumor", "Nope, nothing new under the sun");
+		SetAnswer("Delivery", "Great, thanks! (4 Potatoes added)");
+		SetEvent("Delivery", "DeliveryGive");
+		
 		player.AddPhrase("Delivery");
 
 	}
 	public void DeliveryGive()
 	{
-		mySpeechDB.SetAnswer(name,"Delivery", "Did you already give the potatoes to Bob?");
+		SetAnswer("Delivery", "Did you already give the potatoes to Bob?");
 		myNPCscript.ModInventory("Patate", -4);
 		player.ModInventory("Patate", 4);
-		mySpeechDB.RemoveEvent(name, "Delivery", "DeliveryGive");
+		RemoveEvent("Delivery", "DeliveryGive");
 	}
 }
